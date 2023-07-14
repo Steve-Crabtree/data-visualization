@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fetch()JSON</title>
+</head>
+<body>
+    <div>
+        <canvas id="chart" width="800" height="400"></canvas>
+    </div>
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js " ></script>
+    <script>
+        // chartIt();
+
+        async function chartIt() {
+        const data = await getData();           
+            const ctx = document.getElementById('chart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.xs,
+                    datasets: [{
+                        label: 'Combined Land-Surface Air and Sea-Surface Water Temerature in C°',
+                    data: data.ys,
+                    fill: false,
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)'],
+                    borderColor: ['rgba(255, 99, 132, 1)'],
+                    borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                                ticks: {
+                                    // Include a degree symbol on yAxes
+                                    callback: function(value, index, ticks) {
+                                        return value + '°'; 
+                                    }
+                                }
+                            }
+                        
+                    }
+                }  
+            });
+        }
+        </script>
+
+
+<script src="app.js"></script>
+</body>
+</html>
